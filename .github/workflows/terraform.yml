@@ -9,9 +9,11 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    #defaults:
-      #run:
-        #working-directory: 
+    env:
+      working-directory: terraform
+    defaults:
+      run:
+        working-directory: terraform
     permissions:
       actions: write
       checks: write
