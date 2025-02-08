@@ -32,6 +32,17 @@ jobs:
       - name: Terraform init
         run: terraform init
 
+      - name: Terraform validation
+        run: terraform validate
+
+      - name: Terrafom Format
+        run: terraform fmt -check
+
+      - name: TFLint
+        uses: github.com/terraform-linters/tflint
+        with: 
+          terraform_version: 1.5.0
+
       - name: Terraform Plan
         run: terraform plan
 
