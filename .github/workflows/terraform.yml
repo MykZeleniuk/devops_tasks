@@ -29,6 +29,28 @@ jobs:
         with:
           terraform_version: 1.5.0
 
+      - name: Cache plugin dir
+        uses: actions/cache@v4
+        with:
+          path: ~/.tflint.d/plugins
+          key: ${{ matrix.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
+          
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: v0.52.0
+    
+      - name: Show version
+        run: tflint --version
+  
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Run TFLint
+        run: tflint -f compact
+
       - name: Terraform init
         run: terraform init
 
@@ -37,11 +59,6 @@ jobs:
 
       - name: Terrafom Format
         run: terraform fmt -check
-
-      - name: TFLint
-        uses: github.com/terraform-linters/tflint@latest
-        with: 
-          terraform_version: 1.5.0
 
       - name: Terraform Plan
         run: terraform plan
