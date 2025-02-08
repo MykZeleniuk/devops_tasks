@@ -39,7 +39,7 @@ jobs:
         run: terraform fmt -check
 
       - name: TFLint
-        uses: github.com/terraform-linters/tflint
+        uses: github.com/terraform-linters/tflint@latest
         with: 
           terraform_version: 1.5.0
 
