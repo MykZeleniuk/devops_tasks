@@ -1,13 +1,3 @@
-variable "image_name" {
-  type = string
-  description = "nginx"
-}
-
-variable "container_name" {
-  type = string
-  description = "tutorial"
-}
-
 variable "port_internal" {
   type = number
   description = "internal port"
