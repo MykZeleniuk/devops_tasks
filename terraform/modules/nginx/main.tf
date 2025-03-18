@@ -73,7 +73,7 @@ resource "tls_locally_signed_cert" "cert_internal" {
   allowed_uses = ["key_encipherment", "cert_signing", "crl_signing"]
 }
 
-resource "local_file" "inteernal_cert" {
+resource "local_file" "internal_cert" {
   content = tls_locally_signed_cert.cert_internal.cert_pem
   filename = "${path.module}/certs/internal.cert"
 }
@@ -89,6 +89,11 @@ resource "docker_container" "nginx" {
   ports {
     internal = var.port_internal
     external = var.port_external
+  }
+
+  volumes {
+    host_path      = abspath("${path.module}/nginx.conf")  # Assuming you create this file  
+    container_path = "/etc/nginx/conf.d/default.conf"
   }
 }
 
