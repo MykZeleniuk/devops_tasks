@@ -91,8 +91,14 @@ resource "docker_container" "nginx" {
     external = var.port_external
   }
 
+  command = [
+    "nginx",
+    "-g",
+    "daemon off;"
+  ]
+
   volumes {
-    host_path      = abspath("${path.module}/nginx.conf")  # Assuming you create this file  
+    host_path      = abspath("${path.module}/nginx.conf")
     container_path = "/etc/nginx/conf.d/default.conf"
   }
 }
